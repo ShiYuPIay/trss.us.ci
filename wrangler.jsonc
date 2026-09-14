@@ -1,0 +1,19 @@
+{
+  // 本文件必须提交到仓库。
+  // 缺少它时，`wrangler deploy` 会在非交互环境下启动自动配置向导：
+  //   1) 用 npx 临时下载未固定版本的 wrangler；
+  //   2) 把构建命令改写成 `pnpm --filter frontend... run build`；
+  //   3) 生成一份缺少 assets.directory 的配置，导致部署直接失败。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "trss-us-ci",
+  "compatibility_date": "2026-09-11",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    // Vite 的产物目录，必须显式声明，否则报
+    // "The `assets` property in your configuration is missing the required `directory` property."
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

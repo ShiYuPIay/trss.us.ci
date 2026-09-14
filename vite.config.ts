@@ -25,10 +25,23 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': path.resolve(__dirname, './src') } },
   define: {
-    'import.meta.env.VITE_CLOUDBASE_ENV_ID': JSON.stringify(tcbEnv.CLOUDBASE_ENV_ID || ''),
-    'import.meta.env.VITE_CLOUDBASE_REGION': JSON.stringify(tcbEnv.CLOUDBASE_REGION || 'ap-shanghai'),
-    'import.meta.env.VITE_CLOUDBASE_PUBLISH_KEY': JSON.stringify(tcbEnv.CLOUDBASE_PUBLISH_KEY || ''),
-    'import.meta.env.VITE_OAUTH_RELAY_URL': JSON.stringify(process.env.OAUTH_RELAY_URL || ''),
+    // Values are read from the IDE sandbox file first, then from real process
+    // environment variables. Cloudflare Workers Builds has no
+    // /workspace/.env.tcb, so without the process.env fallback the production
+    // bundle would be compiled with empty CloudBase credentials and the app
+    // would silently run unconfigured (isCloudConfigured === false).
+    'import.meta.env.VITE_CLOUDBASE_ENV_ID': JSON.stringify(
+      tcbEnv.CLOUDBASE_ENV_ID || process.env.VITE_CLOUDBASE_ENV_ID || process.env.CLOUDBASE_ENV_ID || '',
+    ),
+    'import.meta.env.VITE_CLOUDBASE_REGION': JSON.stringify(
+      tcbEnv.CLOUDBASE_REGION || process.env.VITE_CLOUDBASE_REGION || process.env.CLOUDBASE_REGION || 'ap-shanghai',
+    ),
+    'import.meta.env.VITE_CLOUDBASE_PUBLISH_KEY': JSON.stringify(
+      tcbEnv.CLOUDBASE_PUBLISH_KEY || process.env.VITE_CLOUDBASE_PUBLISH_KEY || process.env.CLOUDBASE_PUBLISH_KEY || '',
+    ),
+    'import.meta.env.VITE_OAUTH_RELAY_URL': JSON.stringify(
+      process.env.VITE_OAUTH_RELAY_URL || process.env.OAUTH_RELAY_URL || '',
+    ),
   },
   build: {
     // @cloudbase/js-sdk ships as a single ~770 kB bundle that cannot be split any
