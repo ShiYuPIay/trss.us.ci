@@ -3,6 +3,7 @@ import { ApiError, corsHeaders, fail, fromError, json, ok, withSecurityHeaders }
 import { handleAuth } from './routes/auth.ts'
 import { handleArticles } from './routes/articles.ts'
 import { handleMedia } from './routes/media.ts'
+import { handleProjects } from './routes/projects.ts'
 
 const API_PREFIX = '/api'
 
@@ -30,6 +31,10 @@ function handleApi(request: Request, env: AppEnv, url: URL): Promise<Response> {
 
   if (url.pathname.startsWith(`${API_PREFIX}/auth`)) return handleAuth(request, env, url)
   if (url.pathname.startsWith(`${API_PREFIX}/articles`)) return handleArticles(request, env, url)
+  // 项目与章节：第一公民的读写接口
+  if (url.pathname.startsWith(`${API_PREFIX}/projects`) || url.pathname.startsWith(`${API_PREFIX}/chapters`)) {
+    return handleProjects(request, env, url)
+  }
   if (url.pathname === `${API_PREFIX}/uploads` || url.pathname.startsWith(`${API_PREFIX}/media`)) {
     return handleMedia(request, env, url)
   }
