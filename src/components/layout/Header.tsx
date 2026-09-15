@@ -69,7 +69,7 @@ export function Header() {
           <Link to="/articles" className="icon-button" aria-label="搜索文章"><Search size={18} /></Link>
           {user ? (
             <>
-              <Link to="/studio" className="button button-primary"><PenLine size={16} />写文章</Link>
+              <Link to="/projects" className="button button-primary"><PenLine size={16} />我的项目</Link>
               <button className="icon-button" onClick={() => signOut()} aria-label="退出登录"><LogOut size={18} /></button>
             </>
           ) : (

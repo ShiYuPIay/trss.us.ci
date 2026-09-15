@@ -216,8 +216,8 @@ async function main() {
     const otpFilled = await page.locator('label:has-text("6 位验证码") input').inputValue()
     record('验证码已发送并自动填入（本地调试通道）', /^\d{6}$/.test(otpFilled), `长度 ${otpFilled.length}`)
     await page.click('button[type="submit"]')
-    await page.waitForURL('**/studio', { timeout: 20000 })
-    record('验证码登录成功并进入创作空间', true, otpEmail)
+    await page.waitForURL('**/projects', { timeout: 20000 })
+    record('验证码登录成功并进入写作工作台', true, otpEmail)
 
     // 登出，为后续密码注册流程让路
     await page.click('button[aria-label="退出登录"]')
@@ -232,11 +232,17 @@ async function main() {
     await page.waitForSelector('.field-hint.ok', { timeout: 10000 })
     await page.fill('input[type="password"]', password)
     await page.click('button[type="submit"]')
-    await page.waitForURL('**/studio', { timeout: 20000 })
+    await page.waitForURL('**/projects', { timeout: 20000 })
     await page.waitForSelector('text=写作工作台', { timeout: 20000 })
-    record('注册成功并跳转创作空间', true, page.url())
+    record('注册成功并跳转写作工作台', true, page.url())
     await settlePageTransition(page)
-    await page.screenshot({ path: path.join(ARTIFACT_DIR, '03-studio.png'), fullPage: true })
+    await page.screenshot({ path: path.join(ARTIFACT_DIR, '03-projects.png'), fullPage: true })
+
+    // 登录后落地页已改为写作工作台（/projects）。文章发布仍在 Studio 页面
+    // （项目发布属后续阶段），因此这里显式导航过去再走上传与发布流程。
+    await page.goto(`${BASE_URL}/studio`, { waitUntil: 'domcontentloaded' })
+    await page.waitForSelector('text=写作工作台', { timeout: 20000 })
+    await settlePageTransition(page)
 
     // —— 7. 封面上传（浏览器 → Worker → SITE_KV） ——
     const uploadResponse = page.waitForResponse(
@@ -303,7 +309,7 @@ async function main() {
     await page.screenshot({ path: path.join(ARTIFACT_DIR, '06-article-detail.png'), fullPage: true })
 
     // —— 11. 登录态持久（刷新后仍在登录） ——
-    await page.goto(`${BASE_URL}/studio`, { waitUntil: 'domcontentloaded' })
+    await page.goto(`${BASE_URL}/projects`, { waitUntil: 'domcontentloaded' })
     await page.waitForSelector('text=写作工作台', { timeout: 20000 })
     record('刷新后登录态保持（HttpOnly Cookie 生效）', true)
 
@@ -313,7 +319,7 @@ async function main() {
     await page.waitForURL('**/login', { timeout: 20000 })
     record('登出后回到登录页', true)
 
-    await page.goto(`${BASE_URL}/studio`, { waitUntil: 'domcontentloaded' })
+    await page.goto(`${BASE_URL}/projects`, { waitUntil: 'domcontentloaded' })
     await page.waitForURL('**/login', { timeout: 20000 })
     record('登出后受保护路由重定向到登录页', true)
   } finally {

@@ -16,6 +16,8 @@ import Tags from '@/pages/Tags'
 import About from '@/pages/About'
 import Login from '@/pages/Login'
 import Studio from '@/pages/Studio'
+import Projects from '@/pages/Projects'
+import ProjectDetail from '@/pages/ProjectDetail'
 import AuthCallback from '@/pages/AuthCallback'
 import NotFound from '@/pages/NotFound'
 
@@ -48,6 +50,9 @@ function SiteRoutes() {
         <Route path="/tags" data-genie-title="标签分类" data-genie-key="Tags" element={<PageTransition transition="fade"><Tags /></PageTransition>} />
         <Route path="/about" data-genie-title="关于" data-genie-key="About" element={<PageTransition transition="slide-up"><About /></PageTransition>} />
         <Route path="/login" data-genie-title="登录" data-genie-key="Login" element={<PageTransition transition="scale"><Login /></PageTransition>} />
+        {/* 项目是第一公民：看板是登录后的主入口，取代「管理后台」形态 */}
+        <Route path="/projects" data-genie-title="写作项目" data-genie-key="Projects" element={<PageTransition transition="fade"><ProtectedRoute><Projects /></ProtectedRoute></PageTransition>} />
+        <Route path="/projects/:id" data-genie-title="项目详情" data-genie-key="ProjectDetail" element={<PageTransition transition="slide-up"><ProtectedRoute><ProjectDetail /></ProtectedRoute></PageTransition>} />
         <Route path="/studio" data-genie-title="写作工作台" data-genie-key="Studio" element={<PageTransition transition="fade"><ProtectedRoute><Studio /></ProtectedRoute></PageTransition>} />
         <Route path="/auth/callback" data-genie-title="登录处理中" data-genie-key="AuthCallback" element={<PageTransition transition="fade"><AuthCallback /></PageTransition>} />
         <Route path="*" data-genie-title="页面未找到" data-genie-key="NotFound" element={<PageTransition transition="fade"><NotFound /></PageTransition>} />

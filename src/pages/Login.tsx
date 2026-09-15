@@ -60,7 +60,7 @@ export default function Login() {
 
   // 已登录用户直接进入创作空间，避免重复登录。
   useEffect(() => {
-    if (user) navigate('/studio', { replace: true })
+    if (user) navigate('/projects', { replace: true })
   }, [navigate, user])
 
   /** 邮箱风控实时反馈：命中临时邮箱时立即提示，而不是等提交后才失败。 */
@@ -101,7 +101,7 @@ export default function Login() {
         if (!secret) throw new Error('请设置登录密码')
         await register(target, secret, name.trim() || undefined)
         toast.success('注册成功，已自动登录')
-        navigate('/studio')
+        navigate('/projects')
         return
       }
 
@@ -109,7 +109,7 @@ export default function Login() {
         if (!secret) throw new Error('请输入登录密码')
         await signInWithPassword(target, secret)
         toast.success('登录成功')
-        navigate('/studio')
+        navigate('/projects')
         return
       }
 
@@ -128,7 +128,7 @@ export default function Login() {
 
       await signInWithEmailCode(ticket, secret.trim())
       toast.success('登录成功')
-      navigate('/studio')
+      navigate('/projects')
     } catch (error) {
       const message = error instanceof Error ? error.message : '操作失败，请稍后重试'
       toast.error(message)
