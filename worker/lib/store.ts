@@ -15,6 +15,11 @@ import type { KVNamespaceLike } from '../types.ts'
  * SITE_KV
  *   article:<slug>             文章对象
  *   articles:index             文章 slug 索引（列表页一次读取代替 N 次列举）
+ *   project:<id>               写作项目对象（第一公民）
+ *   chapter:<id>               项目下的章节对象
+ *   project:chapters:<id>      项目 → 章节 id 有序索引
+ *   user:projects:<uid>        用户 → 项目 id 索引（避免全表扫描）
+ *   projects:index             全部项目索引（公开广场用，含可见性与状态）
  *   media:<id>                 媒体对象（base64，小文件）
  *   media:meta:<id>            media → content-type 元数据
  *   site:config                站点配置
@@ -34,6 +39,11 @@ export const KEYS = {
   password: (emailHash: string) => `pass:${emailHash}`,
   article: (slug: string) => `article:${slug}`,
   articleIndex: 'articles:index',
+  project: (id: string) => `project:${id}`,
+  chapter: (id: string) => `chapter:${id}`,
+  projectChapters: (projectId: string) => `project:chapters:${projectId}`,
+  userProjects: (uid: string) => `user:projects:${uid}`,
+  projectIndex: 'projects:index',
   media: (id: string) => `media:${id}`,
   mediaMeta: (id: string) => `media:meta:${id}`,
   siteConfig: 'site:config',
