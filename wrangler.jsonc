@@ -1,0 +1,64 @@
+{
+  // 本文件必须提交到仓库。
+  // 缺少它时，`wrangler deploy` 会在非交互环境下启动自动配置向导：
+  //   1) 用 npx 临时下载未固定版本的 wrangler；
+  //   2) 把构建命令改写成 `pnpm --filter frontend... run build`；
+  //   3) 生成一份缺少 assets.directory 的配置，导致部署直接失败。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "trss-us-ci",
+
+  // Worker 入口：承载 /api/* 动态请求（认证、文章、媒体）。
+  // 未配置 main 时 Worker 只服务静态资源，登录与数据接口都无法工作。
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-11",
+
+  "observability": {
+    "enabled": true
+  },
+
+  "assets": {
+    // Vite 的产物目录，必须显式声明，否则报
+    // "The `assets` property in your configuration is missing the required `directory` property."
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    // 让 /api/* 始终先进入 Worker，避免被 SPA 回退逻辑吞掉成 index.html。
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // KV 命名空间绑定。
+  // 创建方式（把输出里的 id 填回下方对应字段）：
+  //   npx wrangler kv namespace create AUTH_KV
+  //   npx wrangler kv namespace create SITE_KV
+  //   npx wrangler kv namespace create BLOCKLIST_KV
+  // 本地开发（wrangler dev）会自动使用本地模拟 KV，无需真实 id。
+  "kv_namespaces": [
+    {
+      // 身份验证令牌管理：会话、验证码、OAuth state、限流计数
+      "binding": "AUTH_KV",
+      "id": "REPLACE_WITH_AUTH_KV_ID",
+      "preview_id": "REPLACE_WITH_AUTH_KV_PREVIEW_ID"
+    },
+    {
+      // 站点数据：文章、配置、媒体对象（低延迟读取 + 高吞吐）
+      "binding": "SITE_KV",
+      "id": "REPLACE_WITH_SITE_KV_ID",
+      "preview_id": "REPLACE_WITH_SITE_KV_PREVIEW_ID"
+    },
+    {
+      // 邮箱风控：一次性邮箱域名黑/白名单，可热更新
+      "binding": "BLOCKLIST_KV",
+      "id": "REPLACE_WITH_BLOCKLIST_KV_ID",
+      "preview_id": "REPLACE_WITH_BLOCKLIST_KV_PREVIEW_ID"
+    }
+  ],
+
+  "vars": {
+    // OAuth 回调地址的基准，必须与实际访问域名一致（含协议，不带结尾斜杠）
+    "PUBLIC_BASE_URL": "https://trss.us.ci",
+    "ENVIRONMENT": "production"
+    // GOOGLE_CLIENT_ID / GITHUB_CLIENT_ID 为非机密值，可直接写在这里；
+    // GOOGLE_CLIENT_SECRET / GITHUB_CLIENT_SECRET / SESSION_SECRET 必须用
+    // `wrangler secret put <NAME>` 注入，不要写进本文件。
+  }
+}

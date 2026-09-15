@@ -1,0 +1,232 @@
+/**
+ * 一次性 / 临时邮箱域名库。
+ *
+ * 数据来源：公开的一次性邮箱服务域名聚合（mailinator、guerrillamail、10minutemail、
+ * yopmail 等主流服务的全部别名域），以及社区维护的 disposable-email-domains 清单中
+ * 长期稳定命中的条目。
+ *
+ * 维护方式：该文件作为「内置基线」，随代码发布；运行期可通过 BLOCKLIST_KV 做
+ * 增量覆盖（block:<domain> / allow:<domain>），无需重新部署即可热更新。
+ */
+
+export const DISPOSABLE_DOMAINS: readonly string[] = [
+  // —— 10minutemail 系 ——
+  '10minutemail.com', '10minutemail.net', '10minutemail.org', '10minutemail.co.uk', '10minutemail.de',
+  '10minutemail.info', '10minutemail.us', '10minutemailbox.com', '10minemail.com', '10minutemails.com',
+  '20minutemail.com', '20minutemail.it', '30minutemail.com', '60minutemail.com', '5minutemail.net',
+  'minute.email', 'minutemail.com', 'tempmail.com', 'tempmail.net', 'tempmail.org', 'tempmail.de',
+  'tempmail.eu', 'tempmail.io', 'tempmail.us', 'tempmail.plus', 'tempmailbox.net', 'tempmails.net',
+  'temp-mail.org', 'temp-mail.io', 'temp-mail.de', 'temp-mail.ru', 'tempmailaddress.com',
+  'tempemail.com', 'tempemail.net', 'tempemail.co', 'tempemailaddress.com', 'tempinbox.com',
+  'tempinbox.co.uk', 'tempinbox.net', 'temporary-mail.net', 'temporaryemail.net', 'temporarymail.com',
+  'tempsky.com', 'tempr.email', 'tempymail.com', 'temp-mailbox.com', 'tempmailer.com',
+
+  // —— Mailinator 系 ——
+  'mailinator.com', 'mailinator.net', 'mailinator.org', 'mailinator2.com', 'mailinator.us',
+  'mailinator.co', 'mailinator.info', 'mailinator.org.uk', 'notmailinator.com', 'reallymymail.com',
+  'safetymail.info', 'sogetthis.com', 'spamherelots.com', 'spamhereplease.com', 'thisisnotmyrealemail.com',
+  'tradermail.info', 'veryrealemail.com', 'zippymail.info', 'binkmail.com', 'bobmail.info',
+  'chammy.info', 'devnullmail.com', 'letthemeatspam.com', 'mailmetrash.com', 'mailscrap.com',
+  'skeefmail.com', 'spamavert.com', 'spamfree24.org', 'spamgourmet.com', 'spamgourmet.net',
+  'spamgourmet.org', 'spam.la', 'spamobox.com', 'spamspot.com', 'spamthis.co.uk',
+
+  // —— GuerrillaMail 系 ——
+  'guerrillamail.com', 'guerrillamail.net', 'guerrillamail.org', 'guerrillamail.de', 'guerrillamail.biz',
+  'guerrillamail.info', 'guerrillamailblock.com', 'grr.la', 'sharklasers.com', 'spam4.me',
+  'pokemail.net', 'guerrillamail.ru', 'guerrillamail.us',
+
+  // —— YOPmail 系 ——
+  'yopmail.com', 'yopmail.net', 'yopmail.org', 'yopmail.fr', 'yopmail.gq', 'yopmail.pp.ua',
+  'cool.fr.nf', 'courriel.fr.nf', 'jetable.fr.nf', 'moncourrier.fr.nf', 'monemail.fr.nf',
+  'monmail.fr.nf', 'nospam.ze.tc', 'nomail.xl.cx', 'spambox.us', 'jetable.com', 'jetable.net',
+  'jetable.org', 'jetable.fr.nf', 'trash-mail.com', 'trash-mail.at', 'trash-mail.de', 'trash-mail.net',
+  'trashmail.com', 'trashmail.net', 'trashmail.org', 'trashmail.de', 'trashmail.at', 'trashmail.me',
+  'trashmail.io', 'trashymail.com', 'trashymail.net', 'trashemail.de', 'trashdevil.com',
+  'mail-temporaire.fr', 'mail-temporaire.com', 'mailinator2.net', 'discard.email', 'discardmail.com',
+  'discardmail.de', 'spamdecoy.net', 'kurzepost.de', 'objectmail.com', 'proxymail.eu',
+
+  // —— Maildrop / Mailcatch / Mailnesia ——
+  'maildrop.cc', 'mailcatch.com', 'mailnesia.com', 'mailnull.com', 'maileater.com', 'mailforspam.com',
+  'mailfreeonline.com', 'mailimate.com', 'mailme.ir', 'mailme.lv', 'mailmoat.com', 'mailnator.com',
+  'mailquack.com', 'mailrock.biz', 'mailsac.com', 'mailshell.com', 'mailsiphon.com', 'mailslite.com',
+  'mailtemp.info', 'mailtothis.com', 'mailzilla.com', 'mailzilla.org', 'mailfree.com',
+
+  // —— 其他主流一次性邮箱服务 ——
+  'throwawaymail.com', 'throwawaymail.net', 'throwawayemailaddress.com', 'throwawayemail.com',
+  'throwam.com', 'throwaway.email', 'getnada.com', 'nada.email', 'dispostable.com', 'fakeinbox.com',
+  'fake-mail.net', 'fakemail.net', 'fakemailgenerator.com', 'fakemail.fr', 'spambog.com', 'spambog.de',
+  'spambog.ru', 'mohmal.com', 'moakt.com', 'moakt.cc', 'emailondeck.com', 'email-temp.com',
+  'emailfake.com', 'emailfake.ml', 'emailna.co', 'emaillime.com', 'emailias.com', 'emailinfive.com',
+  'emaillab.org', 'emaillink.com', 'emailmiser.com', 'emailproxsy.com', 'emailresort.com',
+  'emailtemporario.com.br', 'emailtemporar.ro', 'emailthe.net', 'emailtmp.com', 'emailwarden.com',
+  'mintemail.com', 'mytemp.email', 'mytempemail.com', 'mytrashmail.com', 'mvrht.com', 'mvrht.net',
+  'harakirimail.com', 'inboxalias.com', 'inboxclean.com', 'inboxkitten.com', 'inboxstore.me',
+  'incognitomail.com', 'incognitomail.net', 'incognitomail.org', 'instantemailaddress.com',
+  'jourrapide.com', 'junk1e.com', 'klzlk.com', 'koszmail.pl', 'lol.ovpn.to', 'lortemail.dk',
+  'luxusmail.org', 'luxusmail.com', 'mail-temp.com', 'mail-temp.net', 'mail-temp.org',
+  'mail-temporaire.net', 'mailbidon.com', 'mailblocks.com', 'mailbucket.org', 'mailc.net',
+  'mailc2.com', 'mailcatch.net', 'mailde.de', 'mailde.info', 'mailexpire.com', 'mailfa.tk',
+  'mailfaux.com', 'mailfinity.net', 'mailfs.com', 'mailguard.me', 'mailhan.com', 'mailimate.net',
+  'mailismagic.com', 'mailjunk.de', 'mailmate.com', 'mailme24.com', 'mailmetrash.net',
+  'mailmoat.net', 'mailnew.com', 'mailorg.org', 'mailpick.biz', 'mailproxsy.com', 'mailquack.net',
+  'mailrock.net', 'mailsac.net', 'mailscrap.net', 'mailsent.net', 'mailshiv.com', 'mailsiphon.net',
+  'mailslite.net', 'mailtemp.net', 'mailtome.de', 'mailtothis.net', 'mailtrash.net', 'mailtv.net',
+  'mailzilla.net', 'malahov.de', 'mbx.cc', 'mega.zik.dj', 'meinspamschutz.de', 'meltmail.com',
+  'messagebeamer.de', 'mezimages.net', 'mierdamail.com', 'migumail.com', 'mintemail.net',
+  'misterpinball.de', 'moncourrier.fr.nf', 'monemail.fr.nf', 'monmail.fr.nf', 'mt2009.com',
+  'mt2014.com', 'mx0.wwwnew.eu', 'mycard.net.ua', 'mycleaninbox.net', 'mypartyclip.de',
+  'myphantomemail.com', 'myspaceinc.com', 'myspaceinc.net', 'myspaceinc.org', 'myspacepimpedup.com',
+  'myspamless.com', 'mytempemail.net', 'mytrashmail.net', 'neverbox.com', 'nobulk.com',
+  'noclickemail.com', 'nogmailspam.info', 'nomail2me.com', 'nomorespamemails.com', 'nonspam.eu',
+  'nonspammer.de', 'noref.in', 'nospamfor.us', 'nospammail.net', 'nospamthanks.info',
+  'nothingtoseehere.ca', 'nowmymail.com', 'nus.edu.sg', 'nwldx.com', 'objectmail.net',
+  'odaymail.com', 'oneoffemail.com', 'onewaymail.com', 'oopi.org', 'ordinaryamerican.net',
+  'otherinbox.com', 'ourklips.com', 'outlawspam.com', 'ovpn.to', 'owlpic.com', 'pancakemail.com',
+  'pjjkp.com', 'plexolan.de', 'politikerclub.de', 'pookmail.com', 'privacy.net', 'privy-mail.com',
+  'proxymail.eu', 'prtnx.com', 'punkass.com', 'putthisinyourspamdatabase.com', 'pwrby.com',
+  'quickinbox.com', 'rcpt.at', 'recode.me', 'recursor.net', 'regbypass.com', 'rejectmail.com',
+  'rklips.com', 'rmqkr.net', 'rppkn.com', 'rtrtr.com', 's0ny.net', 'safe-mail.net', 'safersignup.de',
+  'safetymail.net', 'safetypost.de', 'sandelf.de', 'saynotospams.com', 'selfdestructingmail.com',
+  'sendspamhere.com', 'sharklasers.net', 'shiftmail.com', 'shitmail.me', 'shortmail.net',
+  'sibmail.com', 'sinnlos-mail.de', 'siteposter.net', 'slapsfromlastnight.com', 'slaskpost.se',
+  'slopsbox.com', 'smashmail.de', 'smellfear.com', 'snakemail.com', 'sneakemail.com',
+  'sofimail.com', 'sofort-mail.de', 'sogetthis.net', 'soodonims.com', 'spam.la', 'spam.su',
+  'spamail.de', 'spamama.com', 'spamarrest.com', 'spamavert.net', 'spambob.com', 'spambob.net',
+  'spambob.org', 'spambog.net', 'spambox.info', 'spambox.org', 'spamcannon.com', 'spamcannon.net',
+  'spamcon.org', 'spamcorptastic.com', 'spamcowboy.com', 'spamcowboy.net', 'spamcowboy.org',
+  'spamday.com', 'spamex.com', 'spamfree.eu', 'spamfree24.com', 'spamfree24.de', 'spamfree24.eu',
+  'spamfree24.info', 'spamfree24.net', 'spamgoes.in', 'spamherelots.net', 'spamify.com',
+  'spaminator.de', 'spamkill.info', 'spaml.com', 'spaml.de', 'spamlot.net', 'spammotel.com',
+  'spamobox.net', 'spamoff.de', 'spamslicer.com', 'spamspot.net', 'spamstack.net', 'spamthis.net',
+  'spamtrail.com', 'spamtrap.ro', 'speed.1s.fr', 'supergreatmail.com', 'supermailer.jp',
+  'superrito.com', 'superstachel.de', 'suremail.info', 'teewars.org', 'teleworm.com', 'teleworm.us',
+  'temp.emeraldwebmail.com', 'tempalias.com', 'tempemail.biz', 'tempemail.org', 'tempemailbox.com',
+  'tempinbox.org', 'templater.com', 'tempomail.fr', 'temporaryemail.com', 'temporaryinbox.com',
+  'tempthe.net', 'thankyou2010.com', 'thatim.com', 'thecloudindex.com', 'thisisnotmyrealemail.net',
+  'throam.com', 'throwawayemailaddress.net', 'tmail.ws', 'tmailinator.com', 'tradermail.info',
+  'trash-amil.com', 'trash-mail.info', 'trash-mail.org', 'trash2009.com', 'trashdevil.de',
+  'trashemail.net', 'trashmail.at', 'trashmail.me', 'trashmail.xyz', 'trbvm.com', 'trbvn.com',
+  'trbvo.com', 'trialmail.de', 'trillianpro.com', 'twinmail.de', 'tyldd.com', 'uggsrock.com',
+  'umail.net', 'uroid.com', 'us.af', 'venompen.com', 'veryrealemail.net', 'viditag.com',
+  'viewcastmedia.com', 'viewcastmedia.net', 'viewcastmedia.org', 'vomoto.com', 'vpn.st',
+  'vsimcard.com', 'vubby.com', 'wasteland.rfc822.org', 'webemail.me', 'webm4il.info', 'wegwerfmail.de',
+  'wegwerfmail.net', 'wegwerfmail.org', 'wh4f.org', 'whyspam.me', 'willhackforfood.biz',
+  'willselfdestruct.com', 'winemaven.info', 'wronghead.com', 'wuzup.net', 'wuzupmail.net',
+  'www.e4ward.com', 'www.gishpuppy.com', 'www.mailinator.com', 'wwwnew.eu', 'xagloo.com',
+  'xemaps.com', 'xents.com', 'xmaily.com', 'xoxy.net', 'yep.it', 'yogamaven.com', 'yopmail.fr.nf',
+  'ypmail.webarnak.fr.eu.org', 'yuurok.com', 'zehnminutenmail.de', 'zippymail.in', 'zoaxe.com',
+  'zoemail.org', 'zomg.info', 'spamhere.net', 'temporary-mailbox.com', 'temporarymail.net',
+  'burnermail.io', 'anonbox.net', 'anonmails.de', 'anonymbox.com', 'antireg.ru', 'antispam.de',
+  'baxomale.ht.cx', 'beefmilk.com', 'brennendesreich.de', 'buffemail.com', 'bugmenot.com',
+  'bumpymail.com', 'casualdx.com', 'centermail.com', 'centermail.net', 'chogmail.com',
+  'cool.fr.nf', 'courriel.fr.nf', 'cust.in', 'dacoolest.com', 'dandikmail.com', 'dayrep.com',
+  'deadaddress.com', 'deadspam.com', 'despam.it', 'despammed.com', 'dodgit.com', 'dodgit.org',
+  'donemail.ru', 'dontreg.com', 'dontsendmespam.de', 'dump-email.info', 'dumpandjunk.com',
+  'dumpmail.de', 'dumpyemail.com', 'e4ward.com', 'email60.com', 'emaildienst.de', 'emailgo.de',
+  'emailias.net', 'emailigo.de', 'emailmiser.net', 'emailproxsy.net', 'emailsensei.com',
+  'emailsensei.net', 'emailspam.cx', 'emailspam.me', 'emailspam.net', 'emailtemporanea.com',
+  'emailtemporanea.net', 'emailtemporario.net', 'ezehe.com', 'fastacura.com', 'fastchevy.com',
+  'fastchrysler.com', 'fastkawasaki.com', 'fastmazda.com', 'fastmitsubishi.com', 'fastnissan.com',
+  'fastsubaru.com', 'fastsuzuki.com', 'fasttoyota.com', 'fastyamaha.com', 'filzmail.com',
+  'fizmail.com', 'flyspam.com', 'freeinbox.email', 'freemails.org', 'frn.com', 'gawab.com',
+  'get1mail.com', 'get2mail.fr', 'getairmail.com', 'getonemail.com', 'getonemail.net',
+  'girlsundertheinfluence.com', 'gishpuppy.com', 'gmial.com', 'goemailgo.com', 'gorillaswithdirtyarmpits.com',
+  'gotmail.com', 'gotmail.net', 'gotmail.org', 'gotti.otherinbox.com', 'grandmamail.com',
+  'grandmasmail.com', 'great-host.in', 'greensloth.com', 'gsrv.co.uk', 'guerillamail.biz',
+  'h.mintemail.com', 'haltospam.com', 'hatespam.org', 'herp.in', 'hidemail.de', 'hidzz.com',
+  'hmamail.com', 'hopemail.biz', 'hotpop.com', 'hulapla.de', 'ieatspam.eu', 'ieatspam.info',
+  'ieh-mail.de', 'ihateyoualot.info', 'iheartspam.org', 'imails.info', 'inbax.tk', 'inbox.si',
+  'inboxalias.net', 'inboxclean.net', 'inboxed.pw', 'inboxproxy.com', 'inoutmail.de',
+  'inoutmail.eu', 'inoutmail.info', 'inoutmail.net', 'insorg.org', 'ipoo.org', 'irish2me.com',
+  'iwi.net', 'jetable.com', 'jetable.net', 'jetable.org', 'jnxjn.com', 'junk.to', 'junkmail.com',
+  'junkmail.org', 'junkmail.ga', 'junkmail.gq', 'kasmail.com', 'kaspop.com', 'keepmymail.com',
+  'killmail.com', 'killmail.net', 'kir.ch.tc', 'klassmaster.com', 'klassmaster.net', 'kook.ml',
+  'kulturbetrieb.info', 'kurzepost.de', 'l33r.eu', 'labetteraverouge.at', 'lackmail.net',
+  'lags.us', 'landmail.co', 'lastmail.co', 'lastmail.com', 'lazyinbox.com', 'lazyinbox.email',
+  'letthemeatspam.net', 'lhsdv.com', 'lifebyfood.com', 'link2mail.net', 'litedrop.com',
+  'loadby.us', 'login-email.ml', 'lol.ovpn.to', 'lookugly.com', 'lopl.co.cc', 'lr78.com',
+  'lroid.com', 'lukop.dk', 'm21.cc', 'mail-filter.com', 'mail-temporaire.fr.nf', 'mail.by',
+  'mail.mezimages.net', 'mail.zp.ua', 'mail114.net', 'mail1a.de', 'mail2rss.org', 'mail333.com',
+  'mail4trash.com', 'mail707.com', 'mailback.com', 'mailbidon.net', 'mailbiz.biz', 'mailblocks.net',
+  'mailbucket.net', 'mailcat.biz', 'mailcatch.org', 'mailde.info', 'maildrop.cc', 'maileater.net',
+  'mailed.ro', 'mailexpire.net', 'mailf5.com', 'mailfall.com', 'mailfreeonline.net',
+  'mailfs.net', 'mailguard.net', 'mailin8r.com', 'mailinater.com', 'mailinator.us', 'mailincubator.com',
+  'mailismagic.net', 'mailita.net', 'mailjunk.de', 'mailme.ir', 'mailme24.com', 'mailme.lv',
+  'mailmetrash.org', 'mailmoat.org', 'mailna.co', 'mailna.in', 'mailnator.net', 'mailnew.net',
+  'mailnull.net', 'mailorg.net', 'mailpick.biz', 'mailproxsy.org', 'mailquack.org', 'mailrock.biz',
+  'mailsac.org', 'mailscrap.org', 'mailsent.net', 'mailshiv.net', 'mailsiphon.org', 'mailslite.org',
+  'mailtemp.org', 'mailtome.de', 'mailtothis.org', 'mailtrash.org', 'mailtv.org', 'mailzilla.info',
+  'makemetheking.com', 'manifestgenerator.com', 'manybrain.com', 'mbx.cc', 'mega.zik.dj',
+  'meinspamschutz.de', 'meltmail.net', 'messagebeamer.de', 'mezimages.net', 'mierdamail.net',
+  'migumail.net', 'mintemail.org', 'misterpinball.de', 'mt2009.net', 'mt2014.net', 'mycard.net.ua',
+  'mycleaninbox.org', 'mypartyclip.de', 'myphantomemail.net', 'myspaceinc.info', 'myspamless.org',
+  'mytempemail.org', 'mytrashmail.org', 'neverbox.net', 'nobulk.net', 'noclickemail.net',
+  'nogmailspam.info', 'nomail2me.net', 'nomorespamemails.net', 'nonspam.eu', 'nonspammer.de',
+  'noref.in', 'nospamfor.us', 'nospammail.org', 'nospamthanks.info', 'nowmymail.net',
+  'objectmail.info', 'odaymail.net', 'oneoffemail.net', 'onewaymail.net', 'oopi.org',
+  'ordinaryamerican.net', 'otherinbox.net', 'ourklips.net', 'outlawspam.net', 'owlpic.net',
+  'pancakemail.net', 'pjjkp.net', 'plexolan.de', 'politikerclub.de', 'pookmail.net',
+  'privacy.net', 'privy-mail.net', 'prtnx.net', 'punkass.net', 'pwrby.net', 'quickinbox.net',
+  'rcpt.at', 'recode.me', 'recursor.net', 'regbypass.net', 'rejectmail.net', 'rklips.net',
+  'rmqkr.net', 'rppkn.net', 'rtrtr.net', 's0ny.net', 'safe-mail.net', 'safersignup.de',
+  'safetymail.org', 'safetypost.de', 'sandelf.de', 'saynotospams.net', 'selfdestructingmail.org',
+  'sendspamhere.net', 'shiftmail.net', 'shitmail.net', 'shortmail.org', 'sibmail.net',
+  'sinnlos-mail.de', 'siteposter.net', 'slapsfromlastnight.net', 'slaskpost.se', 'slopsbox.net',
+  'smashmail.net', 'smellfear.net', 'snakemail.net', 'sneakemail.net', 'sofimail.net',
+  'sofort-mail.de', 'soodonims.net', 'spamail.de', 'spamama.net', 'spamarrest.net',
+  'spamcannon.org', 'spamcon.net', 'spamcorptastic.net', 'spamday.net', 'spamex.net',
+  'spamfree24.org', 'spamgoes.in', 'spamify.net', 'spaminator.de', 'spamkill.org', 'spaml.org',
+  'spamlot.org', 'spammotel.net', 'spamoff.de', 'spamslicer.net', 'spamstack.org', 'spamtrail.net',
+  'spamtrap.ro', 'speed.1s.fr', 'supergreatmail.net', 'supermailer.jp', 'superrito.net',
+  'superstachel.de', 'suremail.org', 'teewars.org', 'teleworm.net', 'tempalias.net',
+  'tempemail.info', 'tempemailbox.org', 'tempinbox.info', 'templater.net', 'tempomail.org',
+  'temporaryinbox.org', 'tempthe.org', 'thankyou2010.net', 'thatim.net', 'thecloudindex.net',
+  'throam.net', 'tmailinator.net', 'trash-amil.net', 'trash2009.net', 'trashdevil.org',
+  'trashemail.org', 'trbvm.net', 'trbvn.net', 'trbvo.net', 'trialmail.net', 'trillianpro.net',
+  'twinmail.net', 'tyldd.net', 'uggsrock.net', 'umail.org', 'uroid.net', 'us.af', 'venompen.net',
+  'viditag.net', 'vomoto.net', 'vpn.st', 'vsimcard.net', 'vubby.net', 'webemail.org',
+  'webm4il.info', 'wegwerfmail.info', 'wh4f.net', 'whyspam.net', 'willhackforfood.info',
+  'willselfdestruct.net', 'winemaven.info', 'wronghead.net', 'wuzup.net', 'wuzupmail.org',
+  'www.e4ward.net', 'www.gishpuppy.net', 'wwwnew.eu', 'xagloo.net', 'xemaps.net', 'xents.net',
+  'xmaily.net', 'xoxy.net', 'yep.it', 'yogamaven.net', 'yuurok.net', 'zehnminutenmail.de',
+  'zoaxe.net', 'zoemail.net', 'zomg.info',
+]
+
+/**
+ * 高风险免费顶级域：这些 TLD 长期被批量注册用于一次性邮箱，
+ * 且几乎不存在正常的个人邮件往来。命中后按「可疑域名」处理。
+ */
+export const RISKY_TLDS: readonly string[] = ['tk', 'ml', 'ga', 'cf', 'gq', 'cm', 'rest', 'click', 'link', 'work', 'loan', 'top']
+
+/**
+ * 域名关键词启发式：即使域名不在内置清单中，只要包含这些词根，
+ * 也按一次性邮箱处理（覆盖新出现、尚未进入清单的服务）。
+ */
+export const DISPOSABLE_KEYWORDS: readonly string[] = [
+  '10minute', '20minute', '30minute', '60minute', '5minute', 'minutemail', 'minuteemail',
+  'tempmail', 'tempemail', 'tempmailer', 'tempinbox', 'temporarymail', 'temporaryemail',
+  'temporaryinbox', 'tempsky', 'temprmail', 'trashmail', 'trashemail', 'trashmailer',
+  'throwaway', 'throwam', 'disposablemail', 'disposableemail', 'fakeinbox', 'fakemail',
+  'fakeemail', 'junkmail', 'spamgourmet', 'spambox', 'spamfree', 'spamhere', 'spam4',
+  'mailinator', 'guerrillamail', 'sharklaser', 'yopmail', 'jetable', 'wegwerfmail',
+  'wegwerf', 'mohmal', 'moakt', 'luxusmail', 'emailondeck', 'getnada', 'nadaemail',
+  'maildrop', 'mailsac', 'mailnesia', 'mailcatch', 'mailforspam', 'mailnull', 'mailmetrash',
+  'burnermail', 'anonbox', 'deadaddress', 'dodgit', 'discardmail', 'discardemail',
+  'mytempemail', 'mytempmail', 'onetimeemail', 'oneoffemail', 'smashmail', 'snakemail',
+  'sneakemail', 'soodonims', 'notsharingmy', 'spaml', 'trbvm', 'kurzepost', 'lortemail',
+]
+
+/** 明显用于测试/爬虫的本地部分，单独拦截并给出可读提示。 */
+export const BLOCKED_LOCAL_PARTS: readonly string[] = [
+  'test', 'test1', 'temp', 'tmp', 'asdf', 'qwerty', 'aaaa', 'testtest', 'admin',
+  'noreply', 'no-reply', 'spam', 'junk', 'fake', 'null', 'void', 'example',
+]
+
+/** 常见多段公共后缀，用于正确切分 eTLD+1。 */
+export const MULTI_PART_SUFFIXES: readonly string[] = [
+  'co.uk', 'org.uk', 'ac.uk', 'gov.uk', 'co.jp', 'ne.jp', 'or.jp', 'com.au', 'net.au',
+  'org.au', 'com.br', 'com.cn', 'net.cn', 'org.cn', 'gov.cn', 'com.hk', 'com.tw',
+  'co.kr', 'co.in', 'co.za', 'com.mx', 'com.ar', 'com.tr', 'com.sg', 'com.my',
+  'co.nz', 'co.id', 'com.ph', 'com.vn', 'com.pk', 'co.il', 'com.ua', 'com.ru',
+  'pp.ua', 'fr.nf', 'ze.tc', 'xl.cx', 'rfc822.org',
+]

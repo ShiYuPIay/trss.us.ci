@@ -1,0 +1,53 @@
+# 本地开发环境变量模板。
+# 复制为 .dev.vars（已被 .gitignore 忽略），填入真实值后执行 `npm run worker:dev`。
+# 注意：.dev.vars 中的变量对本地 wrangler dev 生效；生产环境请用 wrangler secret put 注入。
+
+# —— 必填 ——
+# 会话签名与验证码派生密钥，至少 32 位随机字符串。
+# 生成方式：node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+SESSION_SECRET=replace-with-32-byte-random-hex
+
+# —— OAuth（按需启用，留空则对应入口在前端自动隐藏）——
+# ⚠️ 关于回调地址，Google 的校验规则里有两条硬限制（官方 Redirect URI validation rules）：
+#     · "Redirect URIs must use the HTTPS scheme, not plain HTTP."
+#     · "Hosts cannot be raw IP addresses."   ← 只有 localhost IP 例外
+#    因此 **裸 IP 形式（无论 http 还是 https）都无法用作 Google 回调地址**，
+#    必须用域名。若站点只能通过 IP 访问，Google 登录将不可用（可用邮箱验证码/GitHub 替代）。
+#
+# Google Cloud Console → API 和服务 → 凭据 → OAuth 2.0 客户端 ID（Web 应用）
+# 已获授权的重定向 URI 填（域名形式）：
+#   https://your-domain.example/api/auth/oauth/google/callback
+#   本地联调：http://localhost:8787/api/auth/oauth/google/callback   （localhost 豁免上面两条）
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+# GitHub → Settings → Developer settings → OAuth Apps → New OAuth App
+# Authorization callback URL 填（自 2026-08-14 起单个 OAuth App 可登记最多 10 条）：
+#   https://your-domain.example/api/auth/oauth/github/callback
+#   本地联调：http://127.0.0.1:8787/api/auth/oauth/github/callback
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# —— 站点地址 ——
+# 必须与「浏览器实际访问的地址」完全一致，它决定 OAuth 的 redirect_uri。
+#
+# ⚠️ 当前默认值是服务器 IP。这对 OAuth 有影响：Google 不接受裸 IP 回调（见上），
+#    因此用 IP 访问时 Google 登录不可用。若需要 Google 登录，请把这里改为正式域名。
+#
+# 本地联调**不必改本文件**——用专用脚本覆盖即可（等价于 wrangler dev --var）：
+#   pnpm worker:dev:local      → PUBLIC_BASE_URL 覆盖为 http://127.0.0.1:8787
+PUBLIC_BASE_URL=https://47.106.222.26
+# PUBLIC_BASE_URL=http://127.0.0.1:8787
+ENVIRONMENT=development
+
+# —— 邮件通道（邮箱验证码登录依赖；不配置则只能走 OAuth 登录）——
+# 方案一：Resend（推荐）
+RESEND_API_KEY=
+MAIL_FROM=trss <no-reply@example.com>
+# 方案二：通用 Webhook，Worker 会 POST {to, subject, code, html}
+MAIL_WEBHOOK_URL=
+
+# —— 仅本地调试：允许接口直接回显验证码（生产环境即使设为 true 也会被忽略）——
+ALLOW_OTP_DEV_ECHO=true
+
+# —— 可选：允许携带凭据跨域访问 API 的来源，逗号分隔 ——
+ALLOWED_ORIGINS=
